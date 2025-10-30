@@ -14,9 +14,7 @@
             <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
         </padding>
         <VBox alignment="CENTER" spacing="5.0">
-            <ImageView fitHeight="80.0" fitWidth="80.0">
-                <Image url="@/at/ac/hcw/campusconnect/images/logo.png"/>
-            </ImageView>
+            <ImageView fx:id="logoImageView" fitHeight="80.0" fitWidth="80.0"/>
             <Text styleClass="title" text="Welcome to Campus Connect"/>
             <Text styleClass="subtitle" text="Connect with fellow students on FH Campus"/>
         </VBox>
