@@ -26,7 +26,7 @@ tasks.withType(JavaCompile) {
 
 application {
     mainModule = 'at.ac.hcw.campusconnect'
-    mainClass = 'at.ac.hcw.campusconnect.HelloApplication'
+    mainClass = 'at.ac.hcw.campusconnect.CampusConnectApplication'
 }
 
 javafx {
