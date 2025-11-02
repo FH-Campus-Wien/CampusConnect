@@ -62,10 +62,7 @@
     -fx-text-fill: #1a1a1a;
 }
 
-.input-field:focused, .text-field:focused {
-    -fx-background-color: white;                /* weiß beim Fokus */
-    -fx-border-color: #ff6b6b;                  /* roter Rand */
-}
+
 
 
 .text-input .prompt-text {
