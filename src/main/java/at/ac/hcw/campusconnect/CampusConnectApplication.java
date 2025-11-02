@@ -17,6 +17,10 @@ public class CampusConnectApplication extends Application {
         Image logo = new Image(
                 Objects.requireNonNull(getClass().getResourceAsStream("images/logo.png"))
         );
+
+        scene.getStylesheets().add(
+                Objects.requireNonNull(getClass().getResource("styles/main.css")).toExternalForm()
+        );
         stage.getIcons().add(logo);
         stage.setTitle("CampusConnect");
         stage.setScene(scene);
