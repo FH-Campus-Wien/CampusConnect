@@ -1,0 +1,67 @@
+.root {
+    -fx-background-color: #fafafa;
+    -fx-font-family: Helvetica, Arial, sans-serif;
+}
+
+.login-container {
+    -fx-spacing: 40px;
+    -fx-padding: 40px;
+}
+
+.login-form {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-spacing: 30px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 20, 0, 0, 5);
+}
+
+.title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a1a;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-padding: 0 0 8 0;
+}
+
+.subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #666666;
+    -fx-text-alignment: center;
+}
+
+.input-field {
+    -fx-font-size: 14px;
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 10px;
+    -fx-border-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-padding: 15;
+    -fx-text-fill: #1a1a1a;
+}
+
+.input-field:focused {
+    -fx-background-color: white;
+    -fx-border-color: #ff6b6b;
+    -fx-border-width: 2px;
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 107, 0.2), 10, 0, 0, 0);
+}
+
+.primary-button {
+    -fx-background-color: #ff6b6b;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px 30px;
+    -fx-background-radius: 25px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(255, 107, 107, 0.3), 10, 0, 0, 3);
+}
+
+.primary-button:hover {
+    -fx-background-color: #ff7a7a;
+}
+
+.primary-button:pressed {
+    -fx-background-color: #f25757;
+}
