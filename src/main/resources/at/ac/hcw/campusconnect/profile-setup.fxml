@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="at.ac.hcw.campusconnect.controller.ProfileSetupController">
+    <content>
+        <VBox alignment="TOP_CENTER" styleClass="profile-setup-container">
+            <Text styleClass="title" text="Create Your Profile"/>
+            <Text text="TODO"/>
+        </VBox>
+    </content>
+</ScrollPane>

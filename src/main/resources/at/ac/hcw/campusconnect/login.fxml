@@ -2,13 +2,12 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" prefHeight="600.0" prefWidth="800.0"
       styleClass="login-container" xmlns="http://javafx.com/javafx/17.0.2-ea"
-      fx:controller="at.ac.hcw.campusconnect.LoginController">
+      fx:controller="at.ac.hcw.campusconnect.controller.LoginController">
     <VBox alignment="CENTER" maxWidth="450.0" styleClass="login-form">
         <padding>
             <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
