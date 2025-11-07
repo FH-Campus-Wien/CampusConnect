@@ -10,14 +10,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.Objects;
+import java.util.prefs.Preferences;
 
 public class CampusConnectApplication extends Application {
+    private static final Preferences prefs = Preferences.userRoot().node("at.ac.hcw.campusconnect");
+
     public static void main(String[] args) {
         launch();
     }
 
     @Override
     public void start(Stage stage) throws IOException {
+
         SupabaseConfig.initialize();
 
         SessionManager sessionManager = SessionManager.getInstance();
@@ -39,7 +43,7 @@ public class CampusConnectApplication extends Application {
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(CampusConnectApplication.class.getResource(fxmlFile));
-        Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+        Scene scene = new Scene(fxmlLoader.load());
         Image logo = new Image(
                 Objects.requireNonNull(getClass().getResourceAsStream("images/logo.png"))
         );
@@ -47,8 +51,21 @@ public class CampusConnectApplication extends Application {
         scene.getStylesheets().add(
                 Objects.requireNonNull(getClass().getResource("styles/main.css")).toExternalForm()
         );
+
         stage.getIcons().add(logo);
         stage.setTitle("CampusConnect");
+
+        // restore window size
+        stage.setMinWidth(700);
+        stage.setMinHeight(500);
+        stage.setWidth(prefs.getDouble("window.width", 800));
+        stage.setHeight(prefs.getDouble("window.height", 600));
+
+        stage.setOnCloseRequest(e -> {
+            prefs.putDouble("window.width", stage.getWidth());
+            prefs.putDouble("window.height", stage.getHeight());
+        });
+
         stage.setScene(scene);
         stage.show();
     }

@@ -142,9 +142,9 @@ public class LoginController {
     private void switchToView(String viewName) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/ac/hcw/campusconnect/" + viewName + ".fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            Scene scene = new Scene(fxmlLoader.load());
             scene.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/at/ac/hcw/campusconnect//styles/main.css")).toExternalForm()
+                    Objects.requireNonNull(getClass().getResource("/at/ac/hcw/campusconnect/styles/main.css")).toExternalForm()
             );
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(scene);
