@@ -23,7 +23,7 @@
             <VBox spacing="10.0">
                 <VBox spacing="5.0">
                     <Label text="Student Email Address"/>
-                    <TextField fx:id="emailField" promptText="e.g. max.musterman@stud.hcw.ac.at"
+                    <TextField fx:id="emailField" promptText="e.g. max.mustermann@stud.hcw.ac.at"
                                styleClass="input-field"/>
                 </VBox>
                 <Button fx:id="sendCodeButton" onAction="#handleSendCode" styleClass="primary-button"
