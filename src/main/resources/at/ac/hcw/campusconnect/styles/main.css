@@ -26,11 +26,11 @@
 
 .subtitle {
     -fx-font-size: 16px;
-    -fx-fill: #666666;
+    -fx-text-fill: #666666;
     -fx-text-alignment: center;
 }
 
-.input-field{
+.input-field {
     -fx-font-size: 14px;
     -fx-background-color: #f8f9fa;
     -fx-background-radius: 10px;
@@ -40,7 +40,7 @@
     -fx-text-fill: #1a1a1a;
 }
 
-.input-field:focused{
+.input-field:focused {
     -fx-background-color: white;
     -fx-border-color: #ff6b6b;
     -fx-border-width: 2px;
