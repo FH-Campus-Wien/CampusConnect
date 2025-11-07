@@ -1,6 +1,7 @@
 package at.ac.hcw.campusconnect.controller;
 
 import at.ac.hcw.campusconnect.services.AuthService;
+import at.ac.hcw.campusconnect.services.SessionManager;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,7 +36,7 @@ public class LoginController {
     public void initialize() {
         Image logo = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("at/ac/hcw/campusconnect/images/logo.png")));
         logoImageView.setImage(logo);
-        authService = new AuthService();
+        authService = SessionManager.getInstance().getAuthService();
         otpContainer.setVisible(false);
         otpContainer.setManaged(false);
     }
@@ -74,7 +75,7 @@ public class LoginController {
         task.setOnFailed(e -> {
             sendCodeButton.setDisable(false);
             sendCodeButton.setText("Send Login Code");
-            showError("Network error. Please check your connection and try again." + task.getException());
+            showError("Network error. Please check your connection and try again.");
         });
 
         Thread thread = new Thread(task);
@@ -142,6 +143,9 @@ public class LoginController {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/ac/hcw/campusconnect/" + viewName + ".fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
+            scene.getStylesheets().add(
+                    Objects.requireNonNull(getClass().getResource("/at/ac/hcw/campusconnect//styles/main.css")).toExternalForm()
+            );
             Stage stage = (Stage) emailField.getScene().getWindow();
             stage.setScene(scene);
         } catch (Exception e) {
