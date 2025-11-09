@@ -6,6 +6,7 @@ module at.ac.hcw.campusconnect {
     requires java.net.http;
     requires com.fasterxml.jackson.databind;
     requires static lombok;
+    requires java.desktop;
 
     opens at.ac.hcw.campusconnect to javafx.fxml;
     opens at.ac.hcw.campusconnect.models to com.fasterxml.jackson.databind;

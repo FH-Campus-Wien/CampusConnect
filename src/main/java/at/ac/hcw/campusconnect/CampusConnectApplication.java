@@ -8,6 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.awt.*;
+import java.awt.Taskbar.Feature;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.prefs.Preferences;
@@ -51,11 +53,24 @@ public class CampusConnectApplication extends Application {
         stage.getIcons().add(logo);
         stage.setTitle("CampusConnect");
 
+        //Set icon on the taskbar/dock
+        if (Taskbar.isTaskbarSupported()) {
+            var taskbar = Taskbar.getTaskbar();
+
+            if (taskbar.isSupported(Feature.ICON_IMAGE)) {
+                final Toolkit defaultToolkit = Toolkit.getDefaultToolkit();
+                var dockIcon = defaultToolkit.getImage(getClass().getResource("images/logo.png"));
+                taskbar.setIconImage(dockIcon);
+            }
+
+        }
+
         // restore window size
         stage.setMinWidth(700);
         stage.setMinHeight(500);
         stage.setWidth(prefs.getDouble("window.width", 800));
         stage.setHeight(prefs.getDouble("window.height", 600));
+
 
         stage.setOnCloseRequest(e -> {
             prefs.putDouble("window.width", stage.getWidth());
