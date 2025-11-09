@@ -15,10 +15,6 @@ import java.util.prefs.Preferences;
 public class CampusConnectApplication extends Application {
     private static final Preferences prefs = Preferences.userRoot().node("at.ac.hcw.campusconnect");
 
-    public static void main(String[] args) {
-        launch();
-    }
-
     @Override
     public void start(Stage stage) throws IOException {
 
