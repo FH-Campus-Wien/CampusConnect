@@ -95,6 +95,85 @@ create index IF not exists idx_user_actions_match_check on public.user_actions u
 ALTER TABLE profiles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_actions ENABLE ROW LEVEL SECURITY;
 
--- Example policy for profiles
+-- Create policies for profiles table
 CREATE POLICY "Users can view own profile" ON profiles
     FOR SELECT USING (auth.uid() = user_id);
+
+-- Policy: Users can view all profiles (for matching/browsing)
+CREATE POLICY "Profiles are viewable by all authenticated users"
+    ON public.profiles
+    FOR SELECT
+    TO authenticated
+    USING (true);
+
+-- Policy: Users can insert their own profile
+CREATE POLICY "Users can insert their own profile"
+    ON public.profiles
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (auth.uid() = user_id);
+
+-- Policy: Users can update their own profile
+CREATE POLICY "Users can update their own profile"
+    ON public.profiles
+    FOR UPDATE
+    TO authenticated
+    USING (auth.uid() = user_id)
+    WITH CHECK (auth.uid() = user_id);
+
+-- Policy: Users can delete their own profile
+CREATE POLICY "Users can delete their own profile"
+    ON public.profiles
+    FOR DELETE
+    TO authenticated
+    USING (auth.uid() = user_id);
+
+-- Create storage bucket for profile images
+INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+VALUES (
+    'profile-images',
+    'profile-images',
+    true,
+    5242880, -- 5MB in bytes
+    ARRAY['image/jpeg', 'image/png', 'image/gif', 'image/webp']
+);
+
+-- Enable RLS on storage.objects
+ALTER TABLE storage.objects ENABLE ROW LEVEL SECURITY;
+
+-- Policy: Authenticated users can upload to their own folder
+CREATE POLICY "Users can upload their own profile images"
+    ON storage.objects
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (
+        bucket_id = 'profile-images'
+        AND (storage.foldername(name))[1] = auth.uid()::text
+    );
+
+-- Policy: Authenticated users can view all profile images
+CREATE POLICY "Profile images are publicly accessible"
+    ON storage.objects
+    FOR SELECT
+    TO authenticated
+    USING (bucket_id = 'profile-images');
+
+-- Policy: Users can update their own images
+CREATE POLICY "Users can update their own profile images"
+    ON storage.objects
+    FOR UPDATE
+    TO authenticated
+    USING (
+        bucket_id = 'profile-images'
+        AND (storage.foldername(name))[1] = auth.uid()::text
+    );
+
+-- Policy: Users can delete their own images
+CREATE POLICY "Users can delete their own profile images"
+    ON storage.objects
+    FOR DELETE
+    TO authenticated
+    USING (
+        bucket_id = 'profile-images'
+        AND (storage.foldername(name))[1] = auth.uid()::text
+    );
