@@ -6,7 +6,9 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +30,8 @@ public class LoginController {
     private VBox otpContainer;
     @FXML
     private TextField otpField;
+    @FXML
+    private Label errorLabel;
 
     private AuthService authService;
     private boolean otpSent = false;
@@ -39,6 +43,9 @@ public class LoginController {
         authService = SessionManager.getInstance().getAuthService();
         otpContainer.setVisible(false);
         otpContainer.setManaged(false);
+        // clear any errors when the user edits fields
+        emailField.textProperty().addListener((obs, oldVal, newVal) -> clearError());
+        otpField.textProperty().addListener((obs, oldVal, newVal) -> clearError());
     }
 
 
@@ -46,7 +53,7 @@ public class LoginController {
     private void handleSendCode() {
         String email = emailField.getText().trim();
         if (email.isEmpty()) {
-            showError("Please enter your email address.");
+            showError("Please enter your email address.", emailField);
             return;
         }
         sendCodeButton.setDisable(true);
@@ -60,11 +67,16 @@ public class LoginController {
         };
 
         task.setOnSucceeded(e -> {
-            if (task.getValue()) {
+                if (task.getValue()) {
                 otpSent = true;
                 otpContainer.setVisible(true);
                 otpContainer.setManaged(true);
-                sendCodeButton.setText("Code Sent!");
+                // allow resending after success and update label
+                sendCodeButton.setDisable(false);
+                sendCodeButton.setText("Resend Code");
+                clearError();
+                    // focus the otp field so user can type immediately
+                    Platform.runLater(() -> otpField.requestFocus());
             } else {
                 sendCodeButton.setDisable(false);
                 sendCodeButton.setText("Send Login Code");
@@ -94,7 +106,7 @@ public class LoginController {
         String otp = otpField.getText().trim();
 
         if (otp.isEmpty()) {
-            showError("Please enter the verification code.");
+            showError("Please enter the verification code.", otpField);
             return;
         }
 
@@ -109,7 +121,7 @@ public class LoginController {
         };
 
         task.setOnSucceeded(e -> {
-            if (task.getValue()) {
+                if (task.getValue()) {
                 if (authService.hasProfile()) {
 
                 } else {
@@ -118,7 +130,7 @@ public class LoginController {
             } else {
                 verifyButton.setDisable(false);
                 verifyButton.setText("Verify Code");
-                showError("Invalid verification code. Please try again.");
+                    showError("Invalid verification code. Please try again.", otpField);
             }
         });
 
@@ -134,8 +146,50 @@ public class LoginController {
     }
 
     private void showError(String message) {
-        // TODO: Implement proper error display in the UI
-        System.err.println("Error: " + message);
+        Platform.runLater(() -> {
+            if (errorLabel != null) {
+                errorLabel.setText(message);
+                errorLabel.setVisible(true);
+                errorLabel.setManaged(true);
+            } else {
+                System.err.println("Error: " + message);
+            }
+        });
+    }
+
+    private void showError(String message, TextField field) {
+        Platform.runLater(() -> {
+            if (errorLabel != null) {
+                errorLabel.setText(message);
+                errorLabel.setVisible(true);
+                errorLabel.setManaged(true);
+            } else {
+                System.err.println("Error: " + message);
+            }
+
+            if (field != null) {
+                if (!field.getStyleClass().contains("input-error")) {
+                    field.getStyleClass().add("input-error");
+                }
+                field.requestFocus();
+            }
+        });
+    }
+
+    private void clearError() {
+        Platform.runLater(() -> {
+            if (errorLabel != null) {
+                errorLabel.setText("");
+                errorLabel.setVisible(false);
+                errorLabel.setManaged(false);
+            }
+            if (emailField != null && emailField.getStyleClass().contains("input-error")) {
+                emailField.getStyleClass().remove("input-error");
+            }
+            if (otpField != null && otpField.getStyleClass().contains("input-error")) {
+                otpField.getStyleClass().remove("input-error");
+            }
+        });
     }
 
     //TODO: improve scene switching later
