@@ -49,15 +49,13 @@
 
 .error-label {
     -fx-background-color: #fdecec;
-    -fx-border-color: rgba(208, 67, 67, 0.15);
+    -fx-border-color: #ffcdd2;
     -fx-border-width: 1px;
-    -fx-border-radius: 8px;
-    -fx-background-radius: 8px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
     -fx-text-fill: #d04545;
-    -fx-font-size: 13px;
-    -fx-padding: 10px 14px;
-    -fx-alignment: center-left;
-    -fx-effect: dropshadow(gaussian, rgba(208,67,67,0.05), 6, 0, 0, 2);
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
 }
 
 .input-error {
