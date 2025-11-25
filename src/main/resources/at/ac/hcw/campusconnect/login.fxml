@@ -18,7 +18,6 @@
             <Text styleClass="subtitle" text="Connect with fellow students on FH Campus"/>
         </VBox>
 
-        <!-- Inline error box (hidden by default) positioned under the title like the design -->
         <Label fx:id="errorLabel" text="" visible="false" managed="false" styleClass="error-label" wrapText="true"
                maxWidth="Infinity" alignment="CENTER"/>
 
