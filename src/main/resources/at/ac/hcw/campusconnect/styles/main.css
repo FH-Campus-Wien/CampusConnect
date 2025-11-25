@@ -47,6 +47,23 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 107, 107, 0.2), 10, 0, 0, 0);
 }
 
+.error-label {
+    -fx-background-color: #fdecec;
+    -fx-border-color: #ffcdd2;
+    -fx-border-width: 1px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #d04545;
+    -fx-font-size: 14px;
+    -fx-padding: 12px 16px;
+}
+
+.input-error {
+    -fx-border-color: #ff6b6b;
+    -fx-border-width: 2px;
+    -fx-background-color: #fff6f6;
+}
+
 .primary-button {
     -fx-background-color: #ff6b6b;
     -fx-text-fill: white;

@@ -2,11 +2,13 @@ package at.ac.hcw.campusconnect.controller;
 
 import at.ac.hcw.campusconnect.services.AuthService;
 import at.ac.hcw.campusconnect.services.SessionManager;
+import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +30,8 @@ public class LoginController {
     private VBox otpContainer;
     @FXML
     private TextField otpField;
+    @FXML
+    private Label errorLabel;
 
     private AuthService authService;
     private boolean otpSent = false;
@@ -39,6 +43,9 @@ public class LoginController {
         authService = SessionManager.getInstance().getAuthService();
         otpContainer.setVisible(false);
         otpContainer.setManaged(false);
+        // clear any errors when the user edits fields
+        emailField.textProperty().addListener((obs, oldVal, newVal) -> clearError());
+        otpField.textProperty().addListener((obs, oldVal, newVal) -> clearError());
     }
 
 
@@ -64,7 +71,12 @@ public class LoginController {
                 otpSent = true;
                 otpContainer.setVisible(true);
                 otpContainer.setManaged(true);
-                sendCodeButton.setText("Code Sent!");
+                // allow resending after success and update label
+                sendCodeButton.setDisable(false);
+                sendCodeButton.setText("Resend Code");
+                clearError();
+                // focus the otp field so user can type immediately
+                Platform.runLater(() -> otpField.requestFocus());
             } else {
                 sendCodeButton.setDisable(false);
                 sendCodeButton.setText("Send Login Code");
@@ -134,8 +146,25 @@ public class LoginController {
     }
 
     private void showError(String message) {
-        // TODO: Implement proper error display in the UI
-        System.err.println("Error: " + message);
+        Platform.runLater(() -> {
+            if (errorLabel != null) {
+                errorLabel.setText(message);
+                errorLabel.setVisible(true);
+                errorLabel.setManaged(true);
+            } else {
+                System.err.println("Error: " + message);
+            }
+        });
+    }
+
+    private void clearError() {
+        Platform.runLater(() -> {
+            if (errorLabel != null) {
+                errorLabel.setText("");
+                errorLabel.setVisible(false);
+                errorLabel.setManaged(false);
+            }
+        });
     }
 
     //TODO: improve scene switching later
