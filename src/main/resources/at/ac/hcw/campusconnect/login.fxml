@@ -18,8 +18,8 @@
             <Text styleClass="subtitle" text="Connect with fellow students on FH Campus"/>
         </VBox>
 
-        <Label fx:id="errorLabel" text="" visible="false" managed="false" styleClass="error-label" wrapText="true"
-               maxWidth="Infinity" alignment="CENTER"/>
+        <Label fx:id="errorLabel" visible="false" managed="false" styleClass="error-label" wrapText="true"
+               maxWidth="Infinity"/>
 
         <VBox spacing="20.0">
             <VBox spacing="10.0">
