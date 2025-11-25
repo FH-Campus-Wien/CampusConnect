@@ -19,24 +19,27 @@
         </VBox>
 
         <!-- Inline error box (hidden by default) positioned under the title like the design -->
-        <Label fx:id="errorLabel" text="" visible="false" managed="false" styleClass="error-label" wrapText="true" prefWidth="420.0" maxWidth="420.0" alignment="CENTER" />
+        <Label fx:id="errorLabel" text="" visible="false" managed="false" styleClass="error-label" wrapText="true"
+               prefWidth="420.0" maxWidth="420.0" alignment="CENTER"/>
 
 
-            <VBox spacing="20.0">
+        <VBox spacing="20.0">
             <VBox spacing="10.0">
                 <VBox spacing="5.0">
                     <Label text="Student Email Address"/>
-                        <TextField fx:id="emailField" onAction="#handleSendCode" promptText="e.g. max.mustermann@stud.hcw.ac.at"
+                    <TextField fx:id="emailField" onAction="#handleSendCode"
+                               promptText="e.g. max.mustermann@stud.hcw.ac.at"
                                styleClass="input-field"/>
                 </VBox>
                 <Button fx:id="sendCodeButton" onAction="#handleSendCode" styleClass="primary-button"
                         text="Send Login Code" maxWidth="Infinity"/>
             </VBox>
-                
+
             <VBox fx:id="otpContainer" spacing="10.0">
                 <VBox spacing="5.0">
                     <Label text="Verification Code"/>
-                    <TextField fx:id="otpField" onAction="#handleVerifyCode" promptText="Enter code here" styleClass="input-field"/>
+                    <TextField fx:id="otpField" onAction="#handleVerifyCode" promptText="Enter code here"
+                               styleClass="input-field"/>
                 </VBox>
                 <Button fx:id="verifyButton" onAction="#handleVerifyCode" styleClass="primary-button" text="Verify Code"
                         maxWidth="Infinity"/>
