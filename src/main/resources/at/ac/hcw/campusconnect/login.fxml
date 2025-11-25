@@ -20,8 +20,7 @@
 
         <!-- Inline error box (hidden by default) positioned under the title like the design -->
         <Label fx:id="errorLabel" text="" visible="false" managed="false" styleClass="error-label" wrapText="true"
-               prefWidth="420.0" maxWidth="420.0" alignment="CENTER"/>
-
+               maxWidth="Infinity" alignment="CENTER"/>
 
         <VBox spacing="20.0">
             <VBox spacing="10.0">
