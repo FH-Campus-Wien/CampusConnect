@@ -1,105 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import at.ac.hcw.campusconnect.components.AutoCompleteTextField?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
-<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" prefHeight="800.0" prefWidth="900.0"
-            xmlns="http://javafx.com/javafx/11.0.1">
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fitToWidth="true" prefHeight="600.0" prefWidth="800.0"
+            xmlns="http://javafx.com/javafx/11.0.1"
+            fx:controller="at.ac.hcw.campusconnect.controller.ProfileSetupController">
     <content>
-        <VBox alignment="TOP_CENTER" spacing="12.0" styleClass="profile-setup-container">
-            <Text styleClass="title" text="Create Your Profile"/>
+        <VBox alignment="TOP_CENTER" styleClass="profile-setup-container">
+            <children>
+                <Text styleClass="title" text="Create Your Profile"/>
 
-            <GridPane hgap="16" vgap="14" maxWidth="720">
-                <columnConstraints>
-                    <ColumnConstraints percentWidth="50"/>
-                    <ColumnConstraints percentWidth="50"/>
-                </columnConstraints>
-
-                <!-- Photos -->
-                <Label text="Photos" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
-                <Button fx:id="photoUploadButton" text="Add Photo" styleClass="photo-button" GridPane.columnIndex="0"
-                        GridPane.rowIndex="1"/>
-
-                <!-- First row: First, Last, Birthdate (birth spans both columns) -->
-                <Label text="First Name" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-                <Label text="Last Name" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-
-                <TextField fx:id="firstNameField" styleClass="input-field" GridPane.columnIndex="0"
-                           GridPane.rowIndex="3"/>
-                <TextField fx:id="lastNameField" styleClass="input-field" GridPane.columnIndex="1"
-                           GridPane.rowIndex="3"/>
-
-                <Label text="Birthdate" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
-                <TextField fx:id="birthdateField" promptText="YYYY-MM-DD" styleClass="input-field"
-                           GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2"/>
-
-                <!-- Gender / Pronouns -->
-                <Label text="Gender" GridPane.columnIndex="0" GridPane.rowIndex="6"/>
-                <Label text="Pronouns" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
-
-                <TextField fx:id="genderField" styleClass="input-field" GridPane.columnIndex="0" GridPane.rowIndex="7"/>
-                <TextField fx:id="pronounsField" styleClass="input-field" GridPane.columnIndex="1"
-                           GridPane.rowIndex="7"/>
-
-                <!-- Degree / Semester -->
-                <Label text="Degree Type" GridPane.columnIndex="0" GridPane.rowIndex="8"/>
-                <Label text="Semester" GridPane.columnIndex="1" GridPane.rowIndex="8"/>
-
-                <TextField fx:id="degreeTypeField" promptText="e.g. BSc, MSc" styleClass="input-field"
-                           GridPane.columnIndex="0" GridPane.rowIndex="9"/>
-                <TextField fx:id="semesterField" styleClass="input-field" GridPane.columnIndex="1"
-                           GridPane.rowIndex="9"/>
-
-                <!-- Study Program (full width) -->
-                <Label text="Study Program" GridPane.columnIndex="0" GridPane.rowIndex="10"/>
-                <TextField fx:id="studyProgramField" styleClass="input-field full" GridPane.columnIndex="0"
-                           GridPane.rowIndex="11" GridPane.columnSpan="2"/>
-
-                <!-- Looking For / Interested In -->
-                <Label text="Looking For" GridPane.columnIndex="0" GridPane.rowIndex="12"/>
-                <Label text="Interested In" GridPane.columnIndex="1" GridPane.rowIndex="12"/>
-
-                <TextField fx:id="lookingForField" styleClass="input-field" GridPane.columnIndex="0"
-                           GridPane.rowIndex="13"/>
-                <TextField fx:id="interestedInField" styleClass="input-field" GridPane.columnIndex="1"
-                           GridPane.rowIndex="13"/>
-
-                <!-- Bio (full width) -->
-                <Label text="Bio" GridPane.columnIndex="0" GridPane.rowIndex="14"/>
-                <TextArea fx:id="bioField" styleClass="textarea-field" GridPane.columnIndex="0" GridPane.rowIndex="15"
-                          GridPane.columnSpan="2"/>
-
-                <!-- Interests section (full width) -->
-                <VBox GridPane.columnIndex="0" GridPane.rowIndex="16" GridPane.columnSpan="2" spacing="10">
+                <VBox maxWidth="700.0" spacing="30.0" styleClass="profile-form">
                     <children>
-                        <Label text="Interests"/>
-
-                        <Label text="Academic"/>
-                        <FlowPane fx:id="academicFlow" hgap="10" vgap="10">
+                        <!-- Images Section -->
+                        <VBox>
                             <children>
-                                <ToggleButton fx:id="tutoringBtn" text="Tutoring" styleClass="chip"/>
-                                <ToggleButton fx:id="studyGroupBtn" text="Study Group" styleClass="chip"/>
-                                <ToggleButton fx:id="researchBtn" text="Research" styleClass="chip"/>
+                                <Label styleClass="section-header" text="Photos"/>
+                                <FlowPane fx:id="imageContainer" hgap="10.0" vgap="10.0"/>
+                                <Button fx:id="addImageButton" styleClass="secondary-button"
+                                        text="Add Photos"/>
                             </children>
-                        </FlowPane>
+                        </VBox>
 
-                        <Label text="Technology"/>
-                        <FlowPane fx:id="technologyFlow" hgap="10" vgap="10">
+                        <!-- Basic Info -->
+                        <HBox spacing="20.0">
                             <children>
-                                <ToggleButton fx:id="codingBtn" text="Coding" styleClass="chip"/>
-                                <ToggleButton fx:id="aiBtn" text="AI" styleClass="chip"/>
-                                <ToggleButton fx:id="designBtn" text="Design" styleClass="chip"/>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="First Name"/>
+                                        <TextField fx:id="firstNameField" maxWidth="Infinity"
+                                                   styleClass="form-text-field"/>
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Last Name"/>
+                                        <TextField fx:id="lastNameField" maxWidth="Infinity"
+                                                   styleClass="form-text-field"/>
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                                    <children>
+                                        <Label text="Birthdate"/>
+                                        <DatePicker fx:id="birthdatePicker" styleClass="form-date-picker"/>
+                                    </children>
+                                </VBox>
                             </children>
-                        </FlowPane>
+                        </HBox>
+                        <HBox spacing="20.0">
+                            <VBox HBox.hgrow="ALWAYS">
+                                <Label text="Gender"/>
+                                <ComboBox fx:id="genderComboBox" maxWidth="Infinity"
+                                          styleClass="form-combo-box"/>
+                            </VBox>
+
+                            <VBox HBox.hgrow="ALWAYS">
+                                <children>
+                                    <Label text="Pronouns"/>
+                                    <ComboBox fx:id="pronounsComboBox" maxWidth="Infinity"
+                                              styleClass="form-combo-box"/>
+                                </children>
+                            </VBox>
+
+                        </HBox>
+
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Degree Type"/>
+                                        <ComboBox fx:id="degreeTypeComboBox" maxWidth="Infinity"
+                                                  styleClass="form-combo-box"/>
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Semester"/>
+                                        <ComboBox fx:id="semesterComboBox" maxWidth="Infinity"
+                                                  styleClass="form-combo-box" disable="true"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Study Program -->
+                        <VBox>
+                            <children>
+                                <Label text="Study Program"/>
+                                <AutoCompleteTextField fx:id="studyProgramField" maxWidth="Infinity"
+                                                       styleClass="auto-complete-field"
+                                                       promptText="Search and select your study program..."
+                                                       disable="true"/>
+
+                            </children>
+                        </VBox>
+
+                        <!-- Preferences -->
+                        <HBox spacing="20.0">
+                            <children>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Looking For"/>
+                                        <ComboBox fx:id="lookingForComboBox" maxWidth="Infinity"
+                                                  styleClass="form-combo-box"/>
+                                    </children>
+                                </VBox>
+                                <VBox HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <Label text="Interested In"/>
+                                        <ComboBox fx:id="interestedInComboBox" maxWidth="Infinity"
+                                                  styleClass="form-combo-box"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+
+                        <!-- Bio -->
+                        <VBox>
+                            <children>
+                                <Label text="Bio"/>
+                                <TextArea fx:id="aboutMeArea" prefRowCount="4"
+                                          promptText="Tell others more about yourself..."
+                                          styleClass="form-text-area"/>
+                            </children>
+                        </VBox>
+
+                        <!-- Interests -->
+                        <VBox>
+                            <children>
+                                <Label styleClass="section-header" text="Interests"/>
+
+                                <!-- Academic Interests -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Academic" styleClass="interest-category-label"/>
+                                        <FlowPane fx:id="academicInterestsPane" hgap="10.0" vgap="10.0"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Sports & Fitness -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Sports &amp; Fitness" styleClass="interest-category-label"/>
+                                        <FlowPane fx:id="sportsInterestsPane" hgap="10.0" vgap="10.0"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Hobbies & Creative -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Hobbies &amp; Creative" styleClass="interest-category-label"/>
+                                        <FlowPane fx:id="hobbiesInterestsPane" hgap="10.0" vgap="10.0"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Social & Entertainment -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Social &amp; Entertainment" styleClass="interest-category-label"/>
+                                        <FlowPane fx:id="socialInterestsPane" hgap="10.0" vgap="10.0"/>
+                                    </children>
+                                </VBox>
+
+                                <!-- Technology & Gaming -->
+                                <VBox spacing="10.0">
+                                    <children>
+                                        <Label text="Technology" styleClass="interest-category-label"/>
+                                        <FlowPane fx:id="techInterestsPane" hgap="10.0" vgap="10.0"/>
+                                    </children>
+                                </VBox>
+                            </children>
+                        </VBox>
+
+                        <Button fx:id="saveButton" onAction="#handleSaveProfile"
+                                styleClass="primary-button"
+                                text="Save Profile" maxWidth="Infinity"/>
                     </children>
+                    <padding>
+                        <Insets bottom="40.0" left="40.0" right="40.0" top="40.0"/>
+                    </padding>
                 </VBox>
-
-                <!-- Save button full width centered -->
-                <VBox GridPane.columnIndex="0" GridPane.rowIndex="17" GridPane.columnSpan="2" spacing="8"
-                      alignment="CENTER">
-                    <Button fx:id="saveButton" text="Save Profile" styleClass="primary-button"/>
-                </VBox>
-
-            </GridPane>
+            </children>
         </VBox>
     </content>
 </ScrollPane>

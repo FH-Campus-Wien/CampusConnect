@@ -13,4 +13,6 @@ module at.ac.hcw.campusconnect {
     exports at.ac.hcw.campusconnect;
     exports at.ac.hcw.campusconnect.controller;
     opens at.ac.hcw.campusconnect.controller to javafx.fxml;
+    opens at.ac.hcw.campusconnect.services to javafx.fxml;
+    exports at.ac.hcw.campusconnect.components to javafx.fxml;
 }
