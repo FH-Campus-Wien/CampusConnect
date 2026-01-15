@@ -28,8 +28,7 @@ public class CampusConnectApplication extends Application {
         String fxmlFile;
         switch (sessionState) {
             case AUTHENTICATED_WITH_PROFILE:
-                // TODO: Load main app screen when implemented
-                fxmlFile = "login.fxml"; // For now, default to login
+                fxmlFile = "main.fxml"; // For now, default to login
                 break;
             case AUTHENTICATED_NEEDS_PROFILE:
                 fxmlFile = "profile-setup.fxml";

@@ -46,7 +46,7 @@ public class SessionManager {
             return SessionState.NEEDS_LOGIN;
         }
     }
-    
+
     private SessionState checkUserProfile() {
         if (authService.hasProfile()) {
             return SessionState.AUTHENTICATED_WITH_PROFILE;
@@ -78,6 +78,7 @@ public class SessionManager {
         }
         return true; // No refresh needed
     }
+
 
     public enum SessionState {
         NEEDS_LOGIN,                    // User needs to log in

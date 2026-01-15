@@ -2,18 +2,16 @@ package at.ac.hcw.campusconnect.controller;
 
 import at.ac.hcw.campusconnect.services.AuthService;
 import at.ac.hcw.campusconnect.services.SessionManager;
+import at.ac.hcw.campusconnect.util.SceneNavigator;
 import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -123,7 +121,7 @@ public class LoginController {
         task.setOnSucceeded(e -> {
             if (task.getValue()) {
                 if (authService.hasProfile()) {
-
+                    switchToView("main");
                 } else {
                     switchToView("profile-setup");
                 }
@@ -167,17 +165,11 @@ public class LoginController {
         });
     }
 
-    //TODO: improve scene switching later
     private void switchToView(String viewName) {
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/at/ac/hcw/campusconnect/" + viewName + ".fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().add(
-                    Objects.requireNonNull(getClass().getResource("/at/ac/hcw/campusconnect/styles/main.css")).toExternalForm()
-            );
-            Stage stage = (Stage) emailField.getScene().getWindow();
-            stage.setScene(scene);
+            SceneNavigator.switchScene(emailField, viewName + ".fxml");
         } catch (Exception e) {
+            showError("Failed to navigate: " + e.getMessage());
             e.printStackTrace();
         }
     }

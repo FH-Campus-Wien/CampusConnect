@@ -188,4 +188,49 @@ public class ProfileService {
             }
         });
     }
+
+    /**
+     * Retrieves the profile for a specific user.
+     *
+     * @param userId The ID of the user whose profile to retrieve
+     * @return CompletableFuture with the user's profile, or null if not found
+     * @throws Exception if the request fails
+     */
+    public CompletableFuture<Profile> getProfile(String userId) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                // Get the current user's access token
+                String accessToken = sessionManager.getAccessToken();
+                if (accessToken == null) {
+                    throw new RuntimeException("User not authenticated");
+                }
+
+                // Build the HTTP request
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(URI.create(SupabaseConfig.getRestUrl() + "/profiles?user_id=eq." + userId))
+                        .header("apikey", SupabaseConfig.getSupabaseKey())
+                        .header("Authorization", "Bearer " + accessToken)
+                        .GET()
+                        .build();
+
+                // Send the request
+                HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+
+                // Check response status
+                if (response.statusCode() >= 200 && response.statusCode() < 300) {
+                    // Parse response as array
+                    Profile[] profiles = objectMapper.readValue(response.body(), Profile[].class);
+                    if (profiles.length > 0) {
+                        return profiles[0];
+                    }
+                    return null; // Profile not found
+                } else {
+                    throw new RuntimeException("Failed to get profile: " + response.statusCode() + " - " + response.body());
+                }
+
+            } catch (Exception e) {
+                throw new RuntimeException("Error getting profile: " + e.getMessage(), e);
+            }
+        });
+    }
 }

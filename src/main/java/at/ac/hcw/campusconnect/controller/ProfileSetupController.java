@@ -5,6 +5,7 @@ import at.ac.hcw.campusconnect.models.Profile;
 import at.ac.hcw.campusconnect.services.ImageStorageService;
 import at.ac.hcw.campusconnect.services.ProfileService;
 import at.ac.hcw.campusconnect.services.SessionManager;
+import at.ac.hcw.campusconnect.util.SceneNavigator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.*;
@@ -368,7 +370,7 @@ public class ProfileSetupController {
             imagePreviewViews.add(imageView);
 
             // Create remove button
-            Button removeBtn = new Button("×");
+            Button removeBtn = new Button("Remove");
             removeBtn.setStyle(
                     "-fx-background-color: rgba(255, 59, 48, 0.9); " +
                             "-fx-text-fill: white; " +
@@ -447,9 +449,13 @@ public class ProfileSetupController {
                 })
                 .thenAccept(savedProfile -> {
                     Platform.runLater(() -> {
-                        showSuccessAlert("Profile created successfully!");
-                        System.out.println("Profile saved: " + savedProfile);
-                        // TODO: Navigate to main app screen
+                        try {
+                            // Navigate to main app
+                            SceneNavigator.switchScene(saveButton, "main.fxml");
+                        } catch (Exception e) {
+                            showAlert("Failed to navigate to main app: " + e.getMessage());
+                            e.printStackTrace();
+                        }
                     });
                 })
                 .exceptionally(error -> {

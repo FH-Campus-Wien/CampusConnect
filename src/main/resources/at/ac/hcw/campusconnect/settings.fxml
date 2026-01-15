@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import at.ac.hcw.campusconnect.components.AutoCompleteTextField?>
+<?import at.ac.hcw.campusconnect.components.ErrorBox?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           xmlns="http://javafx.com/javafx"
+           fx:controller="at.ac.hcw.campusconnect.controller.SettingsController"
+           styleClass="settings-container">
+
+    <ErrorBox fx:id="errorBox" StackPane.alignment="TOP_CENTER">
+        <StackPane.margin>
+            <Insets top="20"/>
+        </StackPane.margin>
+    </ErrorBox>
+
+    <ScrollPane fitToWidth="true" styleClass="settings-scroll">
+        <VBox spacing="30" styleClass="settings-content">
+            <padding>
+                <Insets top="30" bottom="40" left="40" right="40"/>
+            </padding>
+
+            <!-- Header -->
+            <Label text="Profile Settings" styleClass="page-title"/>
+
+            <!-- Profile Images Section -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="Profile Photos" styleClass="section-title"/>
+                <Label text="Add up to 4 photos" styleClass="section-subtitle"/>
+                <FlowPane fx:id="imageContainer" hgap="15" vgap="15" styleClass="image-grid"/>
+                <Button fx:id="addImageButton" text="Add Photo" styleClass="secondary-button"
+                        onAction="#handleAddImage"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Basic Information -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="Basic Information" styleClass="section-title"/>
+
+                <HBox spacing="15">
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="First Name" styleClass="field-label"/>
+                        <TextField fx:id="firstNameField" promptText="First Name" styleClass="input-field"/>
+                    </VBox>
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Last Name" styleClass="field-label"/>
+                        <TextField fx:id="lastNameField" promptText="Last Name" styleClass="input-field"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="8">
+                    <Label text="Date of Birth" styleClass="field-label"/>
+                    <DatePicker fx:id="birthdatePicker" promptText="Select date" styleClass="input-field"
+                                maxWidth="Infinity"/>
+                </VBox>
+
+                <HBox spacing="15">
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Gender" styleClass="field-label"/>
+                        <ComboBox fx:id="genderComboBox" promptText="Select gender" styleClass="input-field"
+                                  maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Pronouns" styleClass="field-label"/>
+                        <ComboBox fx:id="pronounsComboBox" promptText="Select pronouns" styleClass="input-field"
+                                  maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Academic Information -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="Academic Information" styleClass="section-title"/>
+
+                <HBox spacing="15">
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Degree Type" styleClass="field-label"/>
+                        <ComboBox fx:id="degreeTypeComboBox" promptText="Select degree" styleClass="input-field"
+                                  maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Semester" styleClass="field-label"/>
+                        <ComboBox fx:id="semesterComboBox" promptText="Select semester" styleClass="input-field"
+                                  maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+
+                <VBox spacing="8">
+                    <Label text="Study Program" styleClass="field-label"/>
+                    <AutoCompleteTextField fx:id="studyProgramField" promptText="Search for your program"
+                                           styleClass="input-field"/>
+                </VBox>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Preferences -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="Dating Preferences" styleClass="section-title"/>
+
+                <HBox spacing="15">
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Looking For" styleClass="field-label"/>
+                        <ComboBox fx:id="lookingForComboBox" promptText="What are you looking for?"
+                                  styleClass="input-field" maxWidth="Infinity"/>
+                    </VBox>
+                    <VBox spacing="8" HBox.hgrow="ALWAYS">
+                        <Label text="Interested In" styleClass="field-label"/>
+                        <ComboBox fx:id="interestedInComboBox" promptText="Who are you interested in?"
+                                  styleClass="input-field" maxWidth="Infinity"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+
+            <Separator/>
+
+            <!-- About Me -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="About Me" styleClass="section-title"/>
+                <Label text="Write a short bio about yourself" styleClass="section-subtitle"/>
+                <TextArea fx:id="aboutMeArea" promptText="Tell others about yourself..." styleClass="input-field"
+                          wrapText="true" prefRowCount="4"/>
+            </VBox>
+
+            <Separator/>
+
+            <!-- Interests -->
+            <VBox spacing="15" styleClass="settings-section">
+                <Label text="Interests" styleClass="section-title"/>
+                <Label text="Select at least 3 interests" styleClass="section-subtitle"/>
+
+                <VBox spacing="15">
+                    <VBox spacing="10">
+                        <Label text="Academic" styleClass="interest-category-label"/>
+                        <FlowPane fx:id="academicInterestsPane" hgap="10" vgap="10"/>
+                    </VBox>
+
+                    <VBox spacing="10">
+                        <Label text="Sports &amp; Fitness" styleClass="interest-category-label"/>
+                        <FlowPane fx:id="sportsInterestsPane" hgap="10" vgap="10"/>
+                    </VBox>
+
+                    <VBox spacing="10">
+                        <Label text="Hobbies" styleClass="interest-category-label"/>
+                        <FlowPane fx:id="hobbiesInterestsPane" hgap="10" vgap="10"/>
+                    </VBox>
+
+                    <VBox spacing="10">
+                        <Label text="Social &amp; Lifestyle" styleClass="interest-category-label"/>
+                        <FlowPane fx:id="socialInterestsPane" hgap="10" vgap="10"/>
+                    </VBox>
+
+                    <VBox spacing="10">
+                        <Label text="Technology" styleClass="interest-category-label"/>
+                        <FlowPane fx:id="techInterestsPane" hgap="10" vgap="10"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+
+            <HBox spacing="15" alignment="CENTER">
+                <padding>
+                    <Insets top="20"/>
+                </padding>
+                <Button fx:id="saveButton" text="Save Changes" styleClass="primary-button" onAction="#handleSave"/>
+                <Button text="Cancel" styleClass="secondary-button" onAction="#handleCancel"/>
+            </HBox>
+
+            <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
+        </VBox>
+    </ScrollPane>
+</StackPane>

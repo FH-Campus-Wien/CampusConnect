@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import at.ac.hcw.campusconnect.components.ErrorBox?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="at.ac.hcw.campusconnect.controller.MatchesController"
+           styleClass="matches-container">
+
+    <!-- Error Box -->
+    <ErrorBox fx:id="errorBox" StackPane.alignment="TOP_CENTER">
+        <StackPane.margin>
+            <Insets top="20"/>
+        </StackPane.margin>
+    </ErrorBox>
+
+    <VBox spacing="20" styleClass="matches-content">
+        <padding>
+            <Insets top="30" bottom="30" left="30" right="30"/>
+        </padding>
+
+        <!-- Header -->
+        <Label text="Matches" styleClass="page-title"/>
+
+        <!-- Matches Grid -->
+        <ScrollPane fitToWidth="true" styleClass="matches-scroll" VBox.vgrow="ALWAYS">
+            <VBox spacing="15">
+                <GridPane fx:id="matchesGrid" hgap="20" vgap="20" styleClass="matches-grid"/>
+
+                <!-- Empty State -->
+                <VBox fx:id="emptyState" alignment="CENTER" spacing="15" styleClass="empty-state" visible="false">
+                    <padding>
+                        <Insets top="100" bottom="100"/>
+                    </padding>
+                    <Label text="No matches yet" styleClass="empty-title"/>
+                    <Label text="Start discovering people to get matches!" styleClass="empty-subtitle"/>
+                </VBox>
+
+                <!-- Loading Indicator -->
+                <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</StackPane>
