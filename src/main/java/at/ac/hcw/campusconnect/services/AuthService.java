@@ -2,6 +2,7 @@ package at.ac.hcw.campusconnect.services;
 
 import at.ac.hcw.campusconnect.config.SupabaseConfig;
 import at.ac.hcw.campusconnect.models.AuthResponse;
+import at.ac.hcw.campusconnect.models.Profile;
 import at.ac.hcw.campusconnect.models.User;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
@@ -205,13 +206,19 @@ public class AuthService {
         return null;
     }
 
-    /**
-     * Check if user has completed profile setup
-     * TODO: Implement actual profile check with API call
-     */
     public boolean hasProfile() {
-        // For now, return false to force profile setup
-        return false;
+        try {
+            if (currentUser == null) {
+                return false;
+            }
+
+            ProfileService profileService = new ProfileService(SessionManager.getInstance());
+            Profile profile = profileService.getProfile(currentUser.getId()).get();
+            return profile != null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public void signOut() {
@@ -231,12 +238,10 @@ public class AuthService {
             }
         }
 
-        // Clear in-memory data
         this.accessToken = null;
         this.currentUser = null;
         this.expiresAt = 0;
 
-        // Clear persisted data
         clearPersistedData();
     }
 

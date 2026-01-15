@@ -20,12 +20,6 @@ public class SessionManager {
         return instance;
     }
 
-    /**
-     * Initialize session on app startup.
-     * Attempts to restore previous session automatically.
-     *
-     * @return SessionState indicating what the app should do next
-     */
     public SessionState initializeSession() {
         try {
             // Try to restore session from stored refresh token
@@ -37,16 +31,14 @@ public class SessionManager {
                 // Stored session invalid, need fresh login
             }
 
-            // No stored session or restore failed
             return SessionState.NEEDS_LOGIN;
 
         } catch (Exception e) {
             e.printStackTrace();
-            // On any error, require fresh login
             return SessionState.NEEDS_LOGIN;
         }
     }
-    
+
     private SessionState checkUserProfile() {
         if (authService.hasProfile()) {
             return SessionState.AUTHENTICATED_WITH_PROFILE;
@@ -79,9 +71,10 @@ public class SessionManager {
         return true; // No refresh needed
     }
 
+
     public enum SessionState {
-        NEEDS_LOGIN,                    // User needs to log in
-        AUTHENTICATED_NEEDS_PROFILE,    // User is logged in but needs to complete profile
-        AUTHENTICATED_WITH_PROFILE      // User is fully authenticated and has profile
+        NEEDS_LOGIN,                    
+        AUTHENTICATED_NEEDS_PROFILE,   
+        AUTHENTICATED_WITH_PROFILE     
     }
 }

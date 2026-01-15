@@ -5,6 +5,7 @@ import at.ac.hcw.campusconnect.models.Profile;
 import at.ac.hcw.campusconnect.services.ImageStorageService;
 import at.ac.hcw.campusconnect.services.ProfileService;
 import at.ac.hcw.campusconnect.services.SessionManager;
+import at.ac.hcw.campusconnect.util.SceneNavigator;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.*;
@@ -368,7 +370,7 @@ public class ProfileSetupController {
             imagePreviewViews.add(imageView);
 
             // Create remove button
-            Button removeBtn = new Button("×");
+            Button removeBtn = new Button("Remove");
             removeBtn.setStyle(
                     "-fx-background-color: rgba(255, 59, 48, 0.9); " +
                             "-fx-text-fill: white; " +
@@ -407,7 +409,6 @@ public class ProfileSetupController {
 
     @FXML
     private void handleSaveProfile() {
-        // Validate profile
         if (!validateProfile()) {
             return;
         }
@@ -416,7 +417,6 @@ public class ProfileSetupController {
         saveButton.setDisable(true);
         saveButton.setText("Saving...");
 
-        // Create profile object
         Profile profile = new Profile();
         profile.setFirstName(firstNameField.getText().trim());
         profile.setLastName(lastNameField.getText().trim());
@@ -431,7 +431,6 @@ public class ProfileSetupController {
         profile.setBio(aboutMeArea.getText().trim());
         profile.setInterests(selectedInterests);
 
-        // Upload images first (if any)
         CompletableFuture<List<String>> imageUploadFuture;
         if (!selectedImageFiles.isEmpty()) {
             imageUploadFuture = imageStorageService.uploadImages(selectedImageFiles);
@@ -439,7 +438,6 @@ public class ProfileSetupController {
             imageUploadFuture = CompletableFuture.completedFuture(new ArrayList<>());
         }
 
-        // Chain image upload with profile creation
         imageUploadFuture
                 .thenCompose(imageUrls -> {
                     profile.setImageUrls(imageUrls);
@@ -447,9 +445,13 @@ public class ProfileSetupController {
                 })
                 .thenAccept(savedProfile -> {
                     Platform.runLater(() -> {
-                        showSuccessAlert("Profile created successfully!");
-                        System.out.println("Profile saved: " + savedProfile);
-                        // TODO: Navigate to main app screen
+                        try {
+                            // Navigate to main app
+                            SceneNavigator.switchScene(saveButton, "main.fxml");
+                        } catch (Exception e) {
+                            showAlert("Failed to navigate to main app: " + e.getMessage());
+                            e.printStackTrace();
+                        }
                     });
                 })
                 .exceptionally(error -> {
@@ -468,73 +470,61 @@ public class ProfileSetupController {
     }
 
     private boolean validateProfile() {
-        // Validate first name
         if (firstNameField.getText() == null || firstNameField.getText().trim().isEmpty()) {
             showAlert("Please enter your first name.");
             return false;
         }
 
-        // Validate last name
         if (lastNameField.getText() == null || lastNameField.getText().trim().isEmpty()) {
             showAlert("Please enter your last name.");
             return false;
         }
 
-        // Validate birthdate
         if (birthdatePicker.getValue() == null) {
             showAlert("Please select your birthdate.");
             return false;
         }
 
-        // Validate gender
         if (genderComboBox.getValue() == null) {
             showAlert("Please select your gender.");
             return false;
         }
 
-        // Validate pronouns
         if (pronounsComboBox.getValue() == null) {
             showAlert("Please select your pronouns.");
             return false;
         }
 
-        // Validate degree type
         if (degreeTypeComboBox.getValue() == null) {
             showAlert("Please select your degree type.");
             return false;
         }
 
-        // Validate semester
         if (semesterComboBox.getValue() == null) {
             showAlert("Please select your semester.");
             return false;
         }
 
-        // Validate study program
         if (studyProgramField.getText() == null || studyProgramField.getText().trim().isEmpty()) {
             showAlert("Please select your study program.");
             return false;
         }
 
-        // Validate looking for
         if (lookingForComboBox.getValue() == null) {
             showAlert("Please select what you're looking for.");
             return false;
         }
 
-        // Validate interested in
         if (interestedInComboBox.getValue() == null) {
             showAlert("Please select who you're interested in.");
             return false;
         }
 
-        // Validate bio (optional but recommend some content)
         if (aboutMeArea.getText() == null || aboutMeArea.getText().trim().isEmpty()) {
             showAlert("Please write a short bio about yourself.");
             return false;
         }
 
-        // Validate interests (minimum 3)
         if (selectedInterests.size() < 3) {
             showAlert("Please select at least 3 interests to help others connect with you.");
             return false;
@@ -545,14 +535,6 @@ public class ProfileSetupController {
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Profile Setup");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
-
-    private void showSuccessAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Profile Setup");
         alert.setHeaderText(null);
         alert.setContentText(message);

@@ -15,10 +15,6 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
-/**
- * Service for managing image uploads to Supabase Storage.
- * Handles uploading up to 4 profile images per user.
- */
 public class ImageStorageService {
     private static final String BUCKET_NAME = "profile-images";
     private static final int MAX_IMAGES = 4;
@@ -32,14 +28,6 @@ public class ImageStorageService {
         this.sessionManager = sessionManager;
     }
 
-    /**
-     * Uploads multiple images to Supabase Storage.
-     * Maximum of 4 images allowed.
-     *
-     * @param imageFiles List of image files to upload
-     * @return CompletableFuture with list of public URLs for the uploaded images
-     * @throws IllegalArgumentException if more than 4 images or invalid files
-     */
     public CompletableFuture<List<String>> uploadImages(List<File> imageFiles) {
         // Validate number of images
         if (imageFiles.size() > MAX_IMAGES) {
