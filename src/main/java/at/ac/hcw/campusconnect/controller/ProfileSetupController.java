@@ -369,20 +369,9 @@ public class ProfileSetupController {
             imageView.setSmooth(true);
             imagePreviewViews.add(imageView);
 
-            // Create remove button
-            Button removeBtn = new Button("Remove");
-            removeBtn.setStyle(
-                    "-fx-background-color: rgba(255, 59, 48, 0.9); " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
-                            "-fx-font-weight: bold; " +
-                            "-fx-min-width: 28px; " +
-                            "-fx-min-height: 28px; " +
-                            "-fx-max-width: 28px; " +
-                            "-fx-max-height: 28px; " +
-                            "-fx-background-radius: 14; " +
-                            "-fx-cursor: hand;"
-            );
+            // Create remove button with X symbol
+            Button removeBtn = new Button("×");
+            removeBtn.getStyleClass().add("image-remove-button");
             removeBtn.setOnAction(e -> removeImagePreview(imageContainer, imageFile, imageView));
 
             // Position remove button in top-right corner

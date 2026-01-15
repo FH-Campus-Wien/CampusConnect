@@ -45,6 +45,14 @@ public class MainController {
         profileService = new ProfileService(sessionManager);
         chatService = new ChatService(sessionManager);
 
+        // Store this controller instance in the root BorderPane for access from child controllers
+        Platform.runLater(() -> {
+            if (contentArea.getScene() != null && contentArea.getScene().getRoot() instanceof javafx.scene.layout.BorderPane) {
+                javafx.scene.layout.BorderPane borderPane = (javafx.scene.layout.BorderPane) contentArea.getScene().getRoot();
+                borderPane.setUserData(this);
+            }
+        });
+
         // Load user profile and setup UI
         loadUserProfile();
 
@@ -166,6 +174,13 @@ public class MainController {
 
         // Request focus
         activeButton.requestFocus();
+    }
+
+    /**
+     * Public method to activate the Chats button from other controllers
+     */
+    public void activateChatsButton() {
+        updateActiveButton(chatsButton);
     }
 
     @FXML

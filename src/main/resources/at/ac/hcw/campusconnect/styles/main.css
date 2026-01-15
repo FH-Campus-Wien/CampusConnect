@@ -415,6 +415,15 @@
   -fx-background-color: #fafafa;
 }
 
+.discover-scroll {
+  -fx-background-color: transparent;
+  -fx-border-color: transparent;
+}
+
+.discover-scroll .viewport {
+  -fx-background-color: transparent;
+}
+
 .discover-content {
   -fx-background-color: transparent;
 }
@@ -712,6 +721,10 @@
   -fx-text-fill: #adb5bd;
 }
 
+.message-sent .message-time{
+    -fx-text-fill: #FFFFFF;
+}
+
 .message-input-container {
   -fx-background-color: white;
   -fx-border-color: #e9ecef;
@@ -720,8 +733,8 @@
 
 .message-input {
   -fx-background-color: #f8f9fa;
-  -fx-background-radius: 25px;
-  -fx-padding: 12px 20px;
+  -fx-background-radius: 22px;
+  -fx-padding: 10px 18px;
   -fx-font-size: 14px;
 }
 
@@ -729,14 +742,16 @@
   -fx-background-color: white;
   -fx-border-color: #ff6b6b;
   -fx-border-width: 2px;
-  -fx-border-radius: 25px;
+  -fx-border-radius: 22px;
 }
 
 .send-button {
   -fx-background-color: #ff6b6b;
-  -fx-background-radius: 25px;
-  -fx-min-width: 50px;
-  -fx-min-height: 50px;
+  -fx-background-radius: 22px;
+  -fx-min-width: 44px;
+  -fx-min-height: 44px;
+  -fx-max-width: 44px;
+  -fx-max-height: 44px;
   -fx-cursor: hand;
 }
 

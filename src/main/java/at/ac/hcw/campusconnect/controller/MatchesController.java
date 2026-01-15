@@ -16,6 +16,7 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Rectangle;
 
 import java.util.List;
 
@@ -111,14 +112,13 @@ public class MatchesController {
         card.setPrefHeight(220);
 
         if (profile != null) {
-            // Profile image
             StackPane avatarContainer = new StackPane();
             avatarContainer.setPrefSize(120, 120);
             avatarContainer.getStyleClass().add("match-avatar");
 
             if (profile.getImageUrls() != null && !profile.getImageUrls().isEmpty()) {
                 try {
-                    Image image = new Image(profile.getImageUrls().get(0), 120, 120, true, true, true);
+                    Image image = new Image(profile.getImageUrls().getFirst(), 120, 120, true, true, true);
                     ImageView imageView = new ImageView(image);
                     imageView.setFitWidth(120);
                     imageView.setFitHeight(120);
@@ -178,21 +178,39 @@ public class MatchesController {
     
     private void updateNavigationButtons(BorderPane borderPane) {
         try {
+            // Get the MainController instance from the root FXML
             VBox sidebar = (VBox) borderPane.getLeft();
-            // Find and focus the chats button
-            sidebar.getChildren().stream()
-                .filter(node -> node instanceof VBox)
-                .findFirst()
-                .ifPresent(vbox -> {
-                    ((VBox) vbox).getChildren().stream()
-                        .filter(node -> node instanceof javafx.scene.control.Button)
-                        .map(node -> (javafx.scene.control.Button) node)
-                        .filter(btn -> "Chats".equals(btn.getText()))
-                        .findFirst()
-                        .ifPresent(btn -> btn.getStyleClass().add("focused"));
-                });
+            Object userData = borderPane.getUserData();
+
+            // If the BorderPane has the MainController stored, use it
+            if (userData instanceof MainController) {
+                MainController mainController = (MainController) userData;
+                mainController.activateChatsButton();
+            } else {
+                // Fallback: manually find and focus the chats button
+                findAndFocusChatsButton(sidebar);
+            }
         } catch (Exception e) {
-            // Ignore navigation button update errors
+            e.printStackTrace();
         }
+    }
+
+    private void findAndFocusChatsButton(VBox sidebar) {
+        sidebar.getChildren().stream()
+            .filter(node -> node instanceof VBox)
+            .map(node -> (VBox) node)
+            .flatMap(vbox -> vbox.getChildren().stream())
+            .filter(node -> node instanceof javafx.scene.control.Button)
+            .map(node -> (javafx.scene.control.Button) node)
+            .forEach(btn -> {
+                // Remove focused from all buttons
+                btn.getStyleClass().remove("focused");
+                // Add focused to Chats button
+                if ("Chats".equals(btn.getText())) {
+                    if (!btn.getStyleClass().contains("focused")) {
+                        btn.getStyleClass().add("focused");
+                    }
+                }
+            });
     }
 }

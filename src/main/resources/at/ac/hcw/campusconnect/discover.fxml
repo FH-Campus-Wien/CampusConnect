@@ -19,10 +19,11 @@
     </ErrorBox>
 
     <!-- Main Content -->
-    <VBox alignment="CENTER" spacing="30" styleClass="discover-content">
-        <padding>
-            <Insets top="40" bottom="40" left="40" right="40"/>
-        </padding>
+    <ScrollPane fitToWidth="true" fitToHeight="true" styleClass="discover-scroll" hbarPolicy="NEVER">
+        <VBox alignment="CENTER" spacing="20" styleClass="discover-content">
+            <padding>
+                <Insets top="20" bottom="20" left="40" right="40"/>
+            </padding>
 
         <!-- Header -->
         <HBox alignment="CENTER" spacing="15">
@@ -30,7 +31,7 @@
         </HBox>
 
         <!-- Card Container -->
-        <StackPane fx:id="cardContainer" styleClass="card-container" prefHeight="550" prefWidth="400">
+        <StackPane fx:id="cardContainer" styleClass="card-container" prefHeight="500" maxHeight="500" prefWidth="400">
             <!-- Empty State -->
             <VBox fx:id="emptyState" alignment="CENTER" spacing="20" styleClass="empty-state" visible="false">
                 <SVGPath
@@ -45,12 +46,13 @@
                 <!-- Image Section -->
                 <StackPane fx:id="imageSection" styleClass="profile-image-section" VBox.vgrow="ALWAYS">
                     <!-- Gradient Overlay -->
-                    <VBox StackPane.alignment="BOTTOM_LEFT" styleClass="profile-overlay">
+                    <VBox StackPane.alignment="BOTTOM_LEFT" styleClass="profile-overlay" spacing="2">
                         <padding>
                             <Insets top="80" bottom="20" left="20" right="20"/>
                         </padding>
                         <Label fx:id="profileName" text="Name, 22" styleClass="profile-name"/>
-                        <Label fx:id="profileInfo" text="Study Program • Semester" styleClass="profile-info"/>
+                        <Label fx:id="profileStudyProgram" text="Study Program" styleClass="profile-info"/>
+                        <Label fx:id="profileSemester" text="Semester" styleClass="profile-info"/>
                     </VBox>
 
                     <ImageView fx:id="profileImage" preserveRatio="true" fitWidth="400" fitHeight="350"/>
@@ -117,5 +119,6 @@
 
         <!-- Loading Indicator -->
         <ProgressIndicator fx:id="loadingIndicator" visible="false"/>
-    </VBox>
+        </VBox>
+    </ScrollPane>
 </StackPane>

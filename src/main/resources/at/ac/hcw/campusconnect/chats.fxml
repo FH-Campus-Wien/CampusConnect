@@ -34,14 +34,14 @@
             </HBox>
 
             <!-- Chat List -->
-            <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="chat-list-scroll">
+            <ScrollPane fitToWidth="true" styleClass="chat-list-scroll">
                 <VBox fx:id="chatList" spacing="0"/>
             </ScrollPane>
 
             <!-- Empty State for Chat List -->
             <VBox fx:id="chatListEmptyState" alignment="CENTER" spacing="15" visible="false">
                 <padding>
-                    <Insets top="100" bottom="100"/>
+                    <Insets top="50" bottom="50"/>
                 </padding>
                 <Label text="No chats yet" styleClass="empty-title"/>
                 <Label text="Start chatting with your matches!" styleClass="empty-subtitle"/>
@@ -76,7 +76,7 @@
             <!-- Message Input -->
             <HBox alignment="CENTER" spacing="10" styleClass="message-input-container">
                 <padding>
-                    <Insets top="15" bottom="15" left="20" right="20"/>
+                    <Insets top="10" bottom="10" left="20" right="20"/>
                 </padding>
                 <TextField fx:id="messageInput" promptText="Type a message..." styleClass="message-input" HBox.hgrow="ALWAYS" onAction="#handleSendMessage"/>
                 <Button fx:id="sendButton" styleClass="send-button" onAction="#handleSendMessage">
@@ -87,9 +87,9 @@
             </HBox>
 
             <!-- Empty Chat State -->
-            <VBox fx:id="emptyChatState" alignment="CENTER" spacing="15" VBox.vgrow="ALWAYS" visible="true">
+            <VBox fx:id="emptyChatState" alignment="CENTER" spacing="15" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets top="100" bottom="100"/>
+                    <Insets top="50" bottom="50"/>
                 </padding>
                 <SVGPath content="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z" 
                          styleClass="empty-icon" scaleX="3" scaleY="3"/>

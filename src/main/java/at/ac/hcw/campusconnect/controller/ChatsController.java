@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -172,6 +173,14 @@ public class ChatsController {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(50);
                 imageView.setFitHeight(50);
+                imageView.setPreserveRatio(false);
+
+                // Create circular clip
+                Rectangle clip = new Rectangle(50, 50);
+                clip.setArcWidth(50);
+                clip.setArcHeight(50);
+                imageView.setClip(clip);
+
                 avatarContainer.getChildren().add(imageView);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -230,6 +239,14 @@ public class ChatsController {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(45);
                 imageView.setFitHeight(45);
+                imageView.setPreserveRatio(false);
+
+                // Create circular clip
+                Rectangle clip = new Rectangle(45, 45);
+                clip.setArcWidth(45);
+                clip.setArcHeight(45);
+                imageView.setClip(clip);
+
                 chatAvatar.getChildren().add(imageView);
             } catch (Exception e) {
                 e.printStackTrace();

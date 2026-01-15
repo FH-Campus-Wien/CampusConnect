@@ -40,7 +40,9 @@ public class DiscoverController {
     @FXML
     private Label profileName;
     @FXML
-    private Label profileInfo;
+    private Label profileStudyProgram;
+    @FXML
+    private Label profileSemester;
     @FXML
     private Label profileBio;
     @FXML
@@ -121,7 +123,8 @@ public class DiscoverController {
         // Set profile data
         int age = calculateAge(profile.getBirthdate());
         profileName.setText(profile.getFirstName() + ", " + age);
-        profileInfo.setText(profile.getStudyProgram() + " • Semester " + profile.getSemester());
+        profileStudyProgram.setText(profile.getStudyProgram());
+        profileSemester.setText("Semester " + profile.getSemester());
         profileBio.setText(profile.getBio());
         lookingForLabel.setText(profile.getLookingFor());
         interestedInLabel.setText(profile.getInterestedIn());
