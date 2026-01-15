@@ -202,6 +202,15 @@ CREATE POLICY "Users can view their own matches"
     TO authenticated
     USING (auth.uid() = user1_id OR auth.uid() = user2_id);
 
+-- Policy: Allow matches to be created automatically by the trigger
+-- The trigger runs with the permissions of the function, which needs to bypass RLS
+-- We need to allow INSERT for authenticated users when they are part of the match
+CREATE POLICY "Allow match creation for mutual likes"
+    ON public.matches
+    FOR INSERT
+    TO authenticated
+    WITH CHECK (auth.uid() = user1_id OR auth.uid() = user2_id);
+
 -- Messages table
 CREATE TABLE IF NOT EXISTS public.messages (
   id uuid not null default gen_random_uuid (),
@@ -257,7 +266,10 @@ CREATE POLICY "Users can create their own actions"
 
 -- Function to create match when both users like each other
 CREATE OR REPLACE FUNCTION create_match_on_mutual_like()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
     mutual_like_exists boolean;
     user1 uuid;
