@@ -248,7 +248,20 @@ public class MatchService {
     }
 
     private boolean isGenderCompatible(String interestedIn, String gender) {
-        return "Everyone".equals(interestedIn) || interestedIn.equals(gender);
+        // If interested in everyone, always compatible
+        if ("Everyone".equals(interestedIn)) {
+            return true;
+        }
+
+        // Map interestedIn preferences to gender values
+        if ("Women".equals(interestedIn)) {
+            return "Woman".equals(gender);
+        }
+        if ("Men".equals(interestedIn)) {
+            return "Man".equals(gender);
+        }
+
+        return false;
     }
 
     private int countSharedInterests(Profile p1, Profile p2) {
