@@ -48,10 +48,16 @@ public class LoginController {
 
 
     @FXML
+
     private void handleSendCode() {
         String email = emailField.getText().trim();
         if (email.isEmpty()) {
             showError("Please enter your email address.");
+            return;
+        }
+        
+        if (!email.toLowerCase().endsWith("hcw.ac.at")) {
+            showError("Only Hochschule Campus students are allowed. Please use your @hcw.ac.at email.");
             return;
         }
         sendCodeButton.setDisable(true);
