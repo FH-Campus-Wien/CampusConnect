@@ -712,6 +712,10 @@
   -fx-text-fill: #adb5bd;
 }
 
+.message-sent .message-time {
+  -fx-text-fill: #ffffff;
+}
+
 .message-input-container {
   -fx-background-color: white;
   -fx-border-color: #e9ecef;
