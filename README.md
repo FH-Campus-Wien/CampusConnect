@@ -17,7 +17,7 @@
 ## 📸 Screenshots
 
 <p align="center">
-  <img src="https://github-production-user-asset-6210df.s3.amazonaws.com/113889912/537772712-6926f095-9f17-4dba-b6c9-e42653dcbee9.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20260119%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260119T230116Z&X-Amz-Expires=300&X-Amz-Signature=9ef84addcd16b92b72e2fc21c19bcef2289fb983f1ac6a0dfde4ba95254a9912&X-Amz-SignedHeaders=host" alt="Login Screen" width="250"/>
+  <img src="https://github.com/user-attachments/assets/a6cf867f-8be6-40e4-9eff-30b05da18dc7" alt="Login Screen" width="250"/>
   <img src="https://github.com/user-attachments/assets/2fabe6d4-9968-4d98-b7b5-5c7c8951ac13" alt="Profile Setup Screen 1" width="250">
   <img src="https://github.com/user-attachments/assets/7a1fb289-8955-48a2-b24e-5db772c63fe7" alt="Profile Setup Screen 2" width="250">
   <img src="https://github.com/user-attachments/assets/efc526e3-6bd4-41f2-9998-b1a1f7ec3d75" alt="Discover Screen" width="250"/>
