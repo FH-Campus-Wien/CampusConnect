@@ -134,7 +134,7 @@ public class ProfileSetupController {
 
     private void setupInterestedInOptions() {
         ObservableList<String> interestedInList = FXCollections.observableArrayList(
-                "Women", "Men", "Non-binary people", "Everyone"
+                "Women", "Men", "Everyone"
         );
         interestedInComboBox.setItems(interestedInList);
     }
@@ -370,18 +370,16 @@ public class ProfileSetupController {
             imagePreviewViews.add(imageView);
 
             // Create remove button
-            Button removeBtn = new Button("Remove");
+            Button removeBtn = new Button("✕");
             removeBtn.setStyle(
-                    "-fx-background-color: rgba(255, 59, 48, 0.9); " +
-                            "-fx-text-fill: white; " +
-                            "-fx-font-size: 18px; " +
+                    "-fx-background-color: transparent; " +
+                            "-fx-text-fill: #FF3B30; " +
+                            "-fx-font-size: 24px; " +
                             "-fx-font-weight: bold; " +
-                            "-fx-min-width: 28px; " +
-                            "-fx-min-height: 28px; " +
-                            "-fx-max-width: 28px; " +
-                            "-fx-max-height: 28px; " +
-                            "-fx-background-radius: 14; " +
-                            "-fx-cursor: hand;"
+                            "-fx-padding: 0; " +
+                            "-fx-cursor: hand; " +
+                            "-fx-background-radius: 0; " +
+                            "-fx-border-width: 0;"
             );
             removeBtn.setOnAction(e -> removeImagePreview(imageContainer, imageFile, imageView));
 
