@@ -21,6 +21,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Rectangle;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -408,14 +409,14 @@ public class ChatsController {
 
     public void selectChatByProfile(Profile profile) {
         if (matches == null || profile == null) return;
-        
+
         // Find the match that contains this profile
         String currentUserId = sessionManager.getCurrentUser().getId();
-        
+
         for (Match match : matches) {
             String matchedUserId = match.getUser1Id().equals(currentUserId) ?
                     match.getUser2Id() : match.getUser1Id();
-            
+
             if (matchedUserId.equals(profile.getUserId())) {
                 match.setMatchedProfile(profile);
                 selectChat(match, profile);

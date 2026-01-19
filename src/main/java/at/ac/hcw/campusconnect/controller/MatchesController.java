@@ -15,7 +15,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 import java.util.List;
 
@@ -49,7 +52,7 @@ public class MatchesController {
                 .thenAccept(matches -> {
                     Platform.runLater(() -> {
                         loadingIndicator.setVisible(false);
-                        
+
                         if (matches == null || matches.isEmpty()) {
                             emptyState.setVisible(true);
                         } else {
@@ -72,11 +75,11 @@ public class MatchesController {
         matchesGrid.setVisible(true);
 
         String currentUserId = sessionManager.getCurrentUser().getId();
-        
+
         for (int i = 0; i < matches.size(); i++) {
             Match match = matches.get(i);
-            
-            String matchedUserId = match.getUser1Id().equals(currentUserId) ? 
+
+            String matchedUserId = match.getUser1Id().equals(currentUserId) ?
                     match.getUser2Id() : match.getUser1Id();
 
             int row = i / 3;
@@ -152,34 +155,16 @@ public class MatchesController {
             Parent root = errorBox.getScene().getRoot();
             if (root instanceof BorderPane) {
                 BorderPane borderPane = (BorderPane) root;
-                
+
                 StackPane contentArea = (StackPane) borderPane.getCenter();
                 ChatsController controller = SceneNavigator.loadViewIntoContainerWithController(contentArea, "chats.fxml");
-                
+
                 controller.selectChatByProfile(profile);
-                
-                updateNavigationButtons(borderPane);
             }
         } catch (Exception e) {
             e.printStackTrace();
             errorBox.showError("Failed to open chat.");
         }
     }
-    
-    private void updateNavigationButtons(BorderPane borderPane) {
-        try {
-            VBox sidebar = (VBox) borderPane.getLeft();
-            Object userData = borderPane.getUserData();
 
-            if (userData instanceof MainController) {
-                MainController mainController = (MainController) userData;
-                mainController.activateChatsButton();
-            } else {
-                // Fallback: manually find and focus the chats button
-                findAndFocusChatsButton(sidebar);
-            }
-        } catch (Exception e) {
-            // Ignore navigation button update errors
-        }
-    }
 }
