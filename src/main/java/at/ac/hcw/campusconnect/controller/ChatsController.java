@@ -36,8 +36,6 @@ public class ChatsController {
     @FXML
     private VBox chatList;
     @FXML
-    private VBox chatListEmptyState;
-    @FXML
     private VBox chatArea;
     @FXML
     private StackPane chatAvatar;
@@ -53,8 +51,6 @@ public class ChatsController {
     private TextField messageInput;
     @FXML
     private Button sendButton;
-    @FXML
-    private VBox emptyChatState;
 
     private SessionManager sessionManager;
     private MatchService matchService;
@@ -79,10 +75,7 @@ public class ChatsController {
         matchService.getMatches()
                 .thenAccept(loadedMatches -> {
                     Platform.runLater(() -> {
-                        if (loadedMatches == null || loadedMatches.isEmpty()) {
-                            chatListEmptyState.setVisible(true);
-                            chatList.setVisible(false);
-                        } else {
+                        if (loadedMatches != null && !loadedMatches.isEmpty()) {
                             matches = loadedMatches;
                             displayChatList();
                         }
@@ -99,8 +92,6 @@ public class ChatsController {
 
     private void displayChatList() {
         chatList.getChildren().clear();
-        chatList.setVisible(true);
-        chatListEmptyState.setVisible(false);
 
         String currentUserId = sessionManager.getCurrentUser().getId();
 
@@ -119,7 +110,6 @@ public class ChatsController {
                             profileCache.put(matchedUserId, profile);
                             match.setMatchedProfile(profile);
 
-                            // Load last message
                             chatService.getLastMessage(match.getId())
                                     .thenAccept(lastMessage -> {
                                         Platform.runLater(() -> {
@@ -232,13 +222,19 @@ public class ChatsController {
                 ImageView imageView = new ImageView(image);
                 imageView.setFitWidth(45);
                 imageView.setFitHeight(45);
+                imageView.setPreserveRatio(false);
+
+                Rectangle clip = new Rectangle(45, 45);
+                clip.setArcWidth(45);
+                clip.setArcHeight(45);
+                imageView.setClip(clip);
+
                 chatAvatar.getChildren().add(imageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        emptyChatState.setVisible(false);
         messagesScrollPane.setVisible(true);
         messageInput.setDisable(false);
         sendButton.setDisable(false);
