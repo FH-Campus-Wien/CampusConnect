@@ -117,7 +117,6 @@ Or use the Supabase CLI
 ```bash
 # Connect to your Supabase database and run:
 psql -h your-db-host -U postgres -d postgres -f sql/schema.sql
-psql -h your-db-host -U postgres -d postgres -f sql/mockdata.sql
 ```
 
 ---
@@ -193,19 +192,6 @@ CampusConnect/
 - Go to the **Matches** tab to see your connections
 - Click on a match to start chatting
 - Messages are delivered in real-time
-
----
-
-## 🔧 Configuration
-
-### Application Settings
-
-Settings can be modified in the **Settings** view:
-
-- Notification preferences
-- Discovery filters
-- Privacy controls
-- Account management
 
 ---
 
