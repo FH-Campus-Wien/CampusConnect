@@ -139,8 +139,6 @@ public class MatchesController {
             infoLabel.setMaxWidth(160);
 
             card.getChildren().addAll(avatarContainer, nameLabel, infoLabel);
-
-            card.setOnMouseClicked(event -> openChat(profile));
         } else {
             ProgressIndicator loader = new ProgressIndicator();
             loader.setPrefSize(50, 50);
@@ -148,23 +146,6 @@ public class MatchesController {
         }
 
         return card;
-    }
-
-    private void openChat(Profile profile) {
-        try {
-            Parent root = errorBox.getScene().getRoot();
-            if (root instanceof BorderPane) {
-                BorderPane borderPane = (BorderPane) root;
-
-                StackPane contentArea = (StackPane) borderPane.getCenter();
-                ChatsController controller = SceneNavigator.loadViewIntoContainerWithController(contentArea, "chats.fxml");
-
-                controller.selectChatByProfile(profile);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            errorBox.showError("Failed to open chat.");
-        }
     }
 
 }
